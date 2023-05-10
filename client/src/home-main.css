@@ -204,10 +204,10 @@ h2 {
 
 
 .B-sec{
-    display:flex;
+    display: flex;
     background-color: #F9F7F5;
     max-width: 100%;
-    padding: 70px 110px;
+    padding: 1vw 5vw;
     align-items: center;
 
 }
@@ -217,7 +217,6 @@ h2 {
 }
 
 .B-sec-right {
-    max-height: 80vh;
     margin-left: 5%;
     padding: 5vh;
 }
@@ -228,9 +227,8 @@ h2 {
 }
 
 .B-sec-main-content {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         align-items: top;
         width: 100%;
         margin-bottom: 5vh;
@@ -238,7 +236,7 @@ h2 {
 }
 
 .B-div {
-    width: 45%; /* or any other desired width */
+    width: 60%; /* or any other desired width */
     padding: 2vh;
     margin-bottom: 2vh;
 }
@@ -251,13 +249,13 @@ h2 {
 .B-div h3 {
     margin-top: 9px;
     margin-bottom: 0;
-    font-size: 20px;
+    font-size: 2vh;
     font-weight: 500;
 }
 
 .B-div p {
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 300;
     line-height: 145%;
 }

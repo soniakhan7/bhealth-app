@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
@@ -7,13 +8,29 @@ import './nav.css'
 import './home-main.css'
 import { useState } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
+import Popup from './Popup'
+import Logout from "./Logout";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "./firebaseConfig";
+import "./Login.css";
 
 
-function Home () {
+
+function Home ({user}) {
 
     const [mealItems, setMealItem] = useState([])
     const [totalCal, setTotalCal] = useState(0)
+    const [buttonPopup, setButtonPopup] = useState(false)
     const [open, setOpen] = useState([true, true, true, true, true, true]);
+
+    {/*Fucntion for Google login. I took this from the login.js page*/}
+    const handleGoogleLogin = async () => {
+        try {
+          await signInWithPopup(auth, provider);
+        } catch (error) {
+          console.error("Error signing in with Google:", error.message);
+        }
+    };
 
     function handleArr(i) {
         const newArr = [...open];
@@ -66,16 +83,34 @@ function Home () {
         {/*right-side nav*/}
         <div class="right-nav-sec">
             <div>
-                <Link className="quiz-cta-btn" to="/QuizFront"> Take the quiz </Link>
+                <Link className="quiz-cta-btn" to="/Quiz"> Take the quiz </Link>
             </div>
             <div>
-                <Link className="quiz-cta-btn" to="/Login"> Login </Link>
+                {!user && (<span onClick={() => setButtonPopup(true)} className="quiz-cta-btn" to="/Login"> Login </span>)}   
+            </div>
+            {/*Button for accessing account history. It should only work when logged in (user not equal to null)*/}
+            <div>
+                {user && (<Link className="quiz-cta-btn" to="/AccountHistory">My Account</Link>)}
+            </div>
+            {/*Logout button. This used to be on the app.js page*/}
+            <div>
+                {user && (
+                <Logout />
+                
+                )}
             </div>
             {/* <div>
                 <Link className="quiz-cta-btn" to="/Logout"> Logout </Link>
             </div> */}
         </div>
     </div>
+        {/*Popup for user login*/}
+        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                    <h1 className="login-title">Login</h1>
+                    <button className="login-button" onClick={handleGoogleLogin}>
+                        Login with Google
+                    </button>
+        </Popup>
 
     {/*Hero section*/}
     <section class="hero-sec">
@@ -92,7 +127,7 @@ function Home () {
                     and more convenient for you. Take our quiz and create a free 5-day personalized meal plan today!
                 </p>
 
-                <div className='hero-button'><Link to="/QuizFront" class="hero-cta-btn"> Take the quiz </Link></div>
+                <div className='hero-button'><Link to="/Quiz" class="hero-cta-btn"> Take the quiz </Link></div>
             </div>
             <div class="hero-trustmarks">
                 <span>
@@ -272,7 +307,7 @@ function Home () {
             <div class="cta-content">
                 <h2>Embrace a healthier lifestyle and discover your perfect plate!</h2>
                 <p>Let's start your journey to a happier and more nutritious you now.</p>
-                <Link class="quiz-cta-btn" to="/QuizFront"> Take the quiz </Link>
+                <Link class="quiz-cta-btn" to="/Quiz"> Take the quiz </Link>
             </div>
         </section>
         {/*Calorie Counter/*/}

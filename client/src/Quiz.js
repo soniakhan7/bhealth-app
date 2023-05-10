@@ -62,6 +62,7 @@ function Quiz({name, setName, setResponse, user}) {
         const [isLoading, setIsLoading] = useState(false);
 
         const handleSubmit = async () => {
+            
             if (
               betterHealthHelp === "" ||
               diet === "" ||
@@ -74,6 +75,7 @@ function Quiz({name, setName, setResponse, user}) {
               setButtonPopup(true);
               return;
             }
+            
         
             // Navigate to the results page
             navigate("/Results");

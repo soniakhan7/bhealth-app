@@ -47,7 +47,7 @@ function Results({response, name, setName, setResponse}) {
         pdf.save("MyMealPlan.pdf");
     };
 
-    const handleRetakeQuiz = () => {
+    const handleNavigate = () => {
         navigate('/Quiz');
     };
     
@@ -62,7 +62,7 @@ function Results({response, name, setName, setResponse}) {
 
         <body>
             <header>
-                <Link to='/'> <img src={require("./official-assets/final_logo_alt.png")} alt="logo"/> </Link>
+                <Link to='/'><img src={require("./official-assets/final_logo_alt.png")} alt="logo" /></Link> 
             </header>
             <main>
                 <div class="top-main">
@@ -82,8 +82,7 @@ function Results({response, name, setName, setResponse}) {
                 <div class=" bottom-main">
 
                         <div id="response" className='response'>
-                            <div>
-                                 
+                            <div>     
                                 {response}
                             </div>
                         </div>
@@ -92,12 +91,16 @@ function Results({response, name, setName, setResponse}) {
                     
                         <p id="download-copy">To download your meal plan click the button below.</p>
                         <button id="button" onClick={handleDownload}>Download</button>
+
+                        <p id="download-copy">To save your meal plan click the button below.</p>
+                        
+                        <button id="button">Save</button>
                 
                         <h4>or</h4>
                 
                 
                         <p id="retake-quiz-copy">Not quite what you were looking for. <br/> Let's retake the quiz to get your perfect plan!</p>
-                        <button onClick={handleRetakeQuiz} id="button">
+                        <button onClick={handleNavigate} id="button">
                             Take the quiz
                         </button>
                 </div>

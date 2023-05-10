@@ -1,11 +1,11 @@
 // App.js
 import { useState, useEffect } from "react";
 import Home from "./LandingPage.js";
-import QuizFront from "./Quiz-front.js";
 import Quiz from "./Quiz.js";
 import Results from "./Last-page-of-quiz.js";
 import Login from "./Login";
-import Logout from "./Logout";
+
+
 import AccountHistory from "./AccountHistory";
 import {
   BrowserRouter,
@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebaseConfig";
+
 
 
 const AuthenticatedRoute = ({ children, user, redirectTo }) => {
@@ -36,7 +37,6 @@ const LoginRoute = ({ children, user, redirectTo, afterLoginRedirectTo }) => {
   return children;
 };
 
-
 function App() {
   const [name, setName] = useState("");
   const [response, setResponse] = useState("Loading your meal plan...");
@@ -50,20 +50,15 @@ function App() {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, []); 
 
   return (
     <div>
       <BrowserRouter>
         <div>
-          {user && (
-            <div style={{ position: "absolute", top: "40px", right: "0px" }}>
-              <Logout />
-              
-            </div>
-          )}
+          
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home user={user}/>} />
             {/* <Route
               path="/login"
               element={
@@ -72,14 +67,7 @@ function App() {
                 </LoginRoute>
               }
             /> */}
-            <Route
-              path="/QuizFront"
-              element={
-                <AuthenticatedRoute user={user} redirectTo="/login">
-                  <QuizFront />
-                </AuthenticatedRoute>
-              }
-            />
+
             <Route
               exact
               path="/Quiz"
